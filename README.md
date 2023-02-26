@@ -33,7 +33,7 @@ internal_ip_address_vm_5 = "192.168.5.31" #elasticsearch<br>
 internal_ip_address_vm_6 = "192.168.6.4" #kibana<br>
 internal_ip_address_vm_7 = "192.168.7.18" #bastionhost<br>
 
-2. С помощью ansible ([bastion.yml](https://github.com/kovbasaad/netology-diplom/blob/main/ansible/bastion.yml)) выполнена установка ansible и копирование файлов (представленны в папке [ansible](https://github.com/kovbasaad/netology-diplom/tree/main/ansible)) на bastionhost для дальнейшей настройки всех виртуальных машин.
+2. С помощью ansible ([bastion.yml](https://github.com/kovbasaad/netology-diplom/blob/main/ansible/bastion.yml)) выполнена установка ansible и копирование файлов (представлены в папке [ansible](https://github.com/kovbasaad/netology-diplom/tree/main/ansible)) на bastionhost для дальнейшей настройки всех виртуальных машин.
 3. С помощью ansible на bastionhost, установлены и настроены необходимые сервисы на виртуальных машинах
 
 Адрес сайта (балансировщик) http://130.193.49.152/ ([servers-playbook.yml](https://github.com/kovbasaad/netology-diplom/blob/main/ansible/servers-playbook.yml))<br>
