@@ -32,7 +32,7 @@ internal_ip_address_vm_5 = "192.168.5.31"
 internal_ip_address_vm_6 = "192.168.6.4"
 internal_ip_address_vm_7 = "192.168.7.18"
 
-
+http://130.193.49.152/
 
 http://158.160.22.73:5601/app/discover
 
