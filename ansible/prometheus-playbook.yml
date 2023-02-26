@@ -1,0 +1,25 @@
+- hosts: prometheus
+  remote_user: kovbasa
+  become: yes
+  become_method: sudo
+  tasks:
+    - name: install prometheus
+      apt:
+        name: prometheus
+        update_cache: yes
+        state: latest
+
+    - name: replace prometheus config
+      template: 
+        src: /home/kovbasa/ansible/prometheus.yml
+        dest: /etc/prometheus/prometheus.yml
+        
+    - name: copy record rules
+      copy: 
+        src: /home/kovbasa/ansible/node-exp-rules.yml
+        dest: /etc/prometheus/
+        mode: preserve      
+
+    - service:
+        name: prometheus
+        state: restarted
