@@ -5,7 +5,7 @@
 
 ### Этапы выполнения
 
-1. Создана инфраструктура в Яндекс Облаке с помощью Terraform, включая группы безопасности и расписание создания снимков дисков ВМ, код представлен в папке [terraform](https://github.com/kovbasaad/netology-diplom/tree/main/terraform)<br>. Токен передан через командную строку аргументом --var
+1. Создана инфраструктура в Яндекс Облаке с помощью Terraform, включая группы безопасности и расписание создания снимков дисков ВМ, код представлен в папке [terraform](https://github.com/kovbasaad/netology-diplom/tree/main/terraform). Токен передан через командную строку аргументом --var <br>
 ![1-1](https://github.com/kovbasaad/netology-diplom/blob/main/img/vm.JPG)<br>
 ![1-2](https://github.com/kovbasaad/netology-diplom/blob/main/img/sg.JPG)<br>
 ![1-3](https://github.com/kovbasaad/netology-diplom/blob/main/img/sdsnapshots.JPG)<br>
@@ -49,7 +49,7 @@ Kibana: http://158.160.30.60:5601/app/discover ([kibana-playbook.yml](https://gi
 [prometheus-playbook.yml](https://github.com/kovbasaad/netology-diplom/blob/main/ansible/prometheus-playbook.yml)<br>
 ![3-7](https://github.com/kovbasaad/netology-diplom/blob/main/img/prometheus.JPG)<br>
 
-Grafana: http://158.160.20.34:3000/d/4aBQsjSmz34/nginx-servers-metrics111 (Логин: admin Пароль: sys-12 ) ([grafana-playbook.yml](https://github.com/kovbasaad/netology-diplom/blob/main/ansible/grafana-playbook.yml))<br>, пароль при запуске playbook'a передан через --extra-vars
+Grafana: http://158.160.20.34:3000/d/4aBQsjSmz34/nginx-servers-metrics111 (Логин: admin Пароль: sys-12 ) ([grafana-playbook.yml](https://github.com/kovbasaad/netology-diplom/blob/main/ansible/grafana-playbook.yml)), пароль при запуске playbook'a передан через --extra-vars<br>
 ![3-8](https://github.com/kovbasaad/netology-diplom/blob/main/img/grafana.JPG)<br>
 
 
