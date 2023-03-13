@@ -1,0 +1,37 @@
+[webservers]
+%{ for ip in webservers ~}
+${ip}
+%{ endfor ~}
+
+[prometheus]
+%{ for ip in prometheus ~}
+${ip}
+%{ endfor ~}
+
+[grafana]
+%{ for ip in grafana ~}
+${ip}
+%{ endfor ~}
+
+[elasticsearch]
+%{ for ip in elasticsearch ~}
+${ip}
+%{ endfor ~}
+
+[kibana]
+%{ for ip in kibana ~}
+${ip}
+%{ endfor ~}
+
+[bastion]
+${bastion}
+
+[allserv:children]
+webservers
+prometheus
+grafana
+elasticsearch
+kibana
+
+[allserv:vars]
+ansible_ssh_common_args='-o ProxyCommand="ssh -p 22 -W %h:%p -q kovbasa@${bastion}"'
