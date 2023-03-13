@@ -35,6 +35,7 @@ internal_ip_address_web_2 = "192.168.2.12" #webserver2<br>
 2. С помощью ansible установлены и настроены необходимые сервисы на виртуальных машинах (playbook'и представлены в папке [ansible](https://github.com/kovbasaad/netology-diplom/tree/main/ansible))
 
 Адрес сайта (балансировщик) http://158.160.5.131/ ([servers-playbook.yml](https://github.com/kovbasaad/netology-diplom/blob/main/ansible/servers-playbook.yml))<br>
+![3](https://github.com/kovbasaad/netology-diplom/blob/main/img/web.JPG)<br>
 ![3-1](https://github.com/kovbasaad/netology-diplom/blob/main/img/curl%20balancer.JPG)<br>
 
 [elasticsearch-playbook.yml](https://github.com/kovbasaad/netology-diplom/blob/main/ansible/elasticsearch-playbook.yml)<br>
