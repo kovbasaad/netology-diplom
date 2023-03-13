@@ -14,24 +14,20 @@ Outputs:<br>
 external_ip_address_balancer = tolist([<br>
   tolist([<br>
     {
-      "address" = "130.193.49.152" #load balancer<br>
+      "address" = "158.160.5.131" #load balancer<br>
     },<br>
   ]),<br>
 ])<br>
-external_ip_address_vm_1 = "84.201.130.207" #webserver1<br>
-external_ip_address_vm_2 = "158.160.4.45" #webserver2<br>
-external_ip_address_vm_3 = "51.250.12.161" #prometheus<br>
-external_ip_address_vm_4 = "51.250.7.128" #grafana<br>
-external_ip_address_vm_5 = "84.201.162.58" #elasticsearch<br>
-external_ip_address_vm_6 = "158.160.22.73" #kibana<br>
-external_ip_address_vm_7 = "130.193.52.254" #bastionhost<br>
-internal_ip_address_vm_1 = "192.168.1.15" #webserver1<br>
-internal_ip_address_vm_2 = "192.168.2.27" #webserver2<br>
-internal_ip_address_vm_3 = "192.168.3.15" #prometheus<br>
-internal_ip_address_vm_4 = "192.168.3.18" #grafana<br>
-internal_ip_address_vm_5 = "192.168.5.31" #elasticsearch<br>
-internal_ip_address_vm_6 = "192.168.6.4" #kibana<br>
-internal_ip_address_vm_7 = "192.168.7.18" #bastionhost<br>
+external_ip_address_vm_4 = "158.160.20.34" #grafana<br>
+external_ip_address_vm_6 = "158.160.30.60" #kibana<br>
+external_ip_address_vm_7 = "158.160.6.156" #bastionhost<br>
+internal_ip_address_vm_3 = "192.168.1.18" #prometheus<br>
+internal_ip_address_vm_4 = "192.168.3.28" #grafana<br>
+internal_ip_address_vm_5 = "192.168.2.16" #elasticsearch<br>
+internal_ip_address_vm_6 = "192.168.3.35" #kibana<br>
+internal_ip_address_vm_7 = "192.168.3.22" #bastionhost<br>
+internal_ip_address_web_1 = "192.168.1.8" #webserver1<br>
+internal_ip_address_web_2 = "192.168.2.12" #webserver2<br>
 
 2. С помощью ansible ([bastion.yml](https://github.com/kovbasaad/netology-diplom/blob/main/ansible/bastion.yml)) выполнена установка ansible и копирование файлов (представлены в папке [ansible](https://github.com/kovbasaad/netology-diplom/tree/main/ansible)) на bastionhost для дальнейшей настройки всех виртуальных машин.
 3. С помощью ansible на bastionhost, установлены и настроены необходимые сервисы на виртуальных машинах
