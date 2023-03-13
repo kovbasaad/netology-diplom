@@ -5,9 +5,10 @@
 
 ### Этапы выполнения
 
-1. Создана инфраструктура в Яндекс Облаке с помощью Terraform, включая группы безопасности, код представлен в файле [main.tf](https://github.com/kovbasaad/netology-diplom/blob/main/main.tf)<br>
+1. Создана инфраструктура в Яндекс Облаке с помощью Terraform, включая группы безопасности и расписание создания снимков дисков ВМ, код представлен в папке [terraform](https://github.com/kovbasaad/netology-diplom/tree/main/terraform)<br>. Токен передан через командную строку аргументом --var
 ![1-1](https://github.com/kovbasaad/netology-diplom/blob/main/img/vm.JPG)<br>
 ![1-2](https://github.com/kovbasaad/netology-diplom/blob/main/img/sg.JPG)<br>
+![1-3](https://github.com/kovbasaad/netology-diplom/blob/main/img/sdsnapshots.JPG)<br>
 
 Outputs:<br>
 
@@ -29,24 +30,26 @@ internal_ip_address_vm_7 = "192.168.3.22" #bastionhost<br>
 internal_ip_address_web_1 = "192.168.1.8" #webserver1<br>
 internal_ip_address_web_2 = "192.168.2.12" #webserver2<br>
 
-2. С помощью ansible ([bastion.yml](https://github.com/kovbasaad/netology-diplom/blob/main/ansible/bastion.yml)) выполнена установка ansible и копирование файлов (представлены в папке [ansible](https://github.com/kovbasaad/netology-diplom/tree/main/ansible)) на bastionhost для дальнейшей настройки всех виртуальных машин.
-3. С помощью ansible на bastionhost, установлены и настроены необходимые сервисы на виртуальных машинах
+Сгенерирован [inventory-файл](https://github.com/kovbasaad/netology-diplom/blob/main/ansible/inventory/hosts.ini) ansible ([inventory.tf](https://github.com/kovbasaad/netology-diplom/blob/main/terraform/inventory.tf) и [hosts.tftpl](https://github.com/kovbasaad/netology-diplom/blob/main/terraform/hosts.tftpl))
 
-Адрес сайта (балансировщик) http://130.193.49.152/ ([servers-playbook.yml](https://github.com/kovbasaad/netology-diplom/blob/main/ansible/servers-playbook.yml))<br>
+2. С помощью ansible установлены и настроены необходимые сервисы на виртуальных машинах (playbook'и представлены в папке [ansible](https://github.com/kovbasaad/netology-diplom/tree/main/ansible))
+
+Адрес сайта (балансировщик) http://158.160.5.131/ ([servers-playbook.yml](https://github.com/kovbasaad/netology-diplom/blob/main/ansible/servers-playbook.yml))<br>
 ![3-1](https://github.com/kovbasaad/netology-diplom/blob/main/img/curl%20balancer.JPG)<br>
 
-Kibana: http://158.160.22.73:5601/app/discover ([kibana-playbook.yml](https://github.com/kovbasaad/netology-diplom/blob/main/ansible/kibana-playbook.yml))<br>
+[elasticsearch-playbook.yml](https://github.com/kovbasaad/netology-diplom/blob/main/ansible/elasticsearch-playbook.yml)<br>
+![3-2](https://github.com/kovbasaad/netology-diplom/blob/main/img/elasticsearch.JPG)<br>
+![3-3](https://github.com/kovbasaad/netology-diplom/blob/main/img/kibana_get_es.JPG)<br>
 
-Grafana: http://51.250.7.128:3000/d/4aBQsjSmz/nginx-servers-metrics (Логин: admin Пароль: sys-12 ) ([grafana-playbook.yml](https://github.com/kovbasaad/netology-diplom/blob/main/ansible/grafana-playbook.yml))<br>
+Kibana: http://158.160.30.60:5601/app/discover ([kibana-playbook.yml](https://github.com/kovbasaad/netology-diplom/blob/main/ansible/kibana-playbook.yml))<br>
+![3-4](https://github.com/kovbasaad/netology-diplom/blob/main/img/kibanahosta.JPG)<br>
+![3-5](https://github.com/kovbasaad/netology-diplom/blob/main/img/kibanahostb.JPG)<br>
+![3-6](https://github.com/kovbasaad/netology-diplom/blob/main/img/kibanalogpath.JPG)<br>
 
 [prometheus-playbook.yml](https://github.com/kovbasaad/netology-diplom/blob/main/ansible/prometheus-playbook.yml)<br>
-![3-2](https://github.com/kovbasaad/netology-diplom/blob/main/img/prometheus.JPG)<br>
+![3-7](https://github.com/kovbasaad/netology-diplom/blob/main/img/prometheus.JPG)<br>
 
-[elasticsearch-playbook.yml](https://github.com/kovbasaad/netology-diplom/blob/main/ansible/elasticsearch-playbook.yml)<br>
-![3-3](https://github.com/kovbasaad/netology-diplom/blob/main/img/elasticsearch.JPG)<br>
-![3-4](https://github.com/kovbasaad/netology-diplom/blob/main/img/kibana_get_es.JPG)<br>
+Grafana: http://158.160.20.34:3000/d/4aBQsjSmz34/nginx-servers-metrics111 (Логин: admin Пароль: sys-12 ) ([grafana-playbook.yml](https://github.com/kovbasaad/netology-diplom/blob/main/ansible/grafana-playbook.yml))<br>, пароль при запуске playbook'a передан через --extra-vars
+![3-8](https://github.com/kovbasaad/netology-diplom/blob/main/img/grafana.JPG)<br>
 
-4. Созданы снимки всех дисков виртуальных машин, и расписание создания новых, код в файле [snapshot.tf](https://github.com/kovbasaad/netology-diplom/blob/main/snapshot.tf)<br>
-![4-1](https://github.com/kovbasaad/netology-diplom/blob/main/img/snapshots.JPG)<br>
-![4-2](https://github.com/kovbasaad/netology-diplom/blob/main/img/sdsnapshots.JPG)<br>
 
