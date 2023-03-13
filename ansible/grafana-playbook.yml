@@ -2,21 +2,8 @@
   remote_user: kovbasa
   become: yes
   become_method: sudo
-  tasks:
-    - name: install reqs
-      apt: 
-        name: libfontconfig1
-        update_cache: yes
-        state: latest
-
-    - name: download grafana
-      get_url:
-        url: https://dl.grafana.com/oss/release/grafana_9.3.6_amd64.deb
-        dest: /tmp
-      
-    - name: install grafana
-      apt:
-        deb: "/tmp/grafana_9.3.6_amd64.deb"
-    - service:
-        name: grafana-server
-        state: started        
+  vars:
+    prometheus_ip: "{{ groups['prometheus'] | map('extract', hostvars, ['inventory_hostname']) | join ('') }}"
+    grafana_ip: "{{ groups['grafana'] | map('extract', hostvars, ['inventory_hostname']) | join ('') }}"
+  roles:
+    - grafana

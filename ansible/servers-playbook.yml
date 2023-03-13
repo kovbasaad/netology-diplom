@@ -2,107 +2,13 @@
   remote_user: kovbasa
   become: yes
   become_method: sudo
-  tasks:
-    - name: install nginx
-      apt:
-        name: nginx
-        state: latest
+  vars:
+    elasticsearch_ip: "{{ groups['elasticsearch'] | map('extract', hostvars, ['inventory_hostname']) | join ('') }}"
+    kibana_ip: "{{ groups['kibana'] | map('extract', hostvars, ['inventory_hostname']) | join ('') }}"
+  roles:
+    - nginx
+    - node_exporter
+    - nginx_logexporter
+    - filebeat
 
-    - name: copy website files
-      copy:
-        src: /home/kovbasa/ansible/website
-        dest: /var/www
-        mode: preserve
-
-    - name: replace nginx config
-      template: 
-        src: /home/kovbasa/ansible/nginx.conf
-        dest: /etc/nginx/nginx.conf
-
-    - service:
-        name: nginx
-        state: restarted
-
-    - name: download node exporter
-      get_url:
-        url: https://github.com/prometheus/node_exporter/releases/download/v1.1.2/node_exporter-1.1.2.linux-amd64.tar.gz
-        dest: /tmp
-    - name: unarchive node exporter
-      unarchive:
-        remote_src: yes
-        src: /tmp/node_exporter-1.1.2.linux-amd64.tar.gz
-        dest: /tmp
-    - name: move node exporter to /usr/local/bin
-      copy:
-        src: /tmp/node_exporter-1.1.2.linux-amd64/node_exporter
-        dest: /usr/local/bin/node_exporter
-        remote_src: yes
-        owner: root
-        group: root
-        mode: 0755
-    - name: install unit file to systemd
-      template:
-        src: /home/kovbasa/ansible/node_exporter.service.j2
-        dest: /etc/systemd/system/node_exporter.service
-        owner: root
-        group: root
-        mode: 0600
-    - name: configure systemd to use service
-      systemd:
-        daemon_reload: yes
-        enabled: yes
-        state: started
-        name: node_exporter.service
-
-    - name: download nginx log exporter
-      get_url:
-        url: https://github.com/martin-helmich/prometheus-nginxlog-exporter/releases/download/v1.9.2/prometheus-nginxlog-exporter_1.9.2_linux_amd64.tar.gz
-        dest: /tmp
-    - name: unarchive nginx log exporter
-      unarchive:
-        remote_src: yes
-        src: /tmp/prometheus-nginxlog-exporter_1.9.2_linux_amd64.tar.gz
-        dest: /tmp
-    - name: move nginx log exporter to /usr/bin
-      copy:
-        remote_src: yes
-        src: /tmp/prometheus-nginxlog-exporter
-        dest: /usr/bin/prometheus-nginxlog-exporter
-        owner: root
-        group: root
-        mode: 0755
-    - name: copy  nginx log exporter config
-      copy:
-        src: /home/kovbasa/ansible/prometheus-nginxlog-exporter.hcl
-        dest: /etc/prometheus-nginxlog-exporter.hcl
-    - name: install unit file to systemd
-      template:
-        src: /home/kovbasa/ansible/nginxlog-exporter.service.j2
-        dest: /etc/systemd/system/prometheus-nginxlog-exporter.service
-        owner: root
-        group: root
-        mode: 0600
-    - name: configure systemd to use service
-      systemd:
-        daemon_reload: yes
-        enabled: yes
-        state: started
-        name: prometheus-nginxlog-exporter.service
-
-    - name: copy filebeat.deb
-      copy:
-        src: /home/kovbasa/ansible/filebeat-8.6.2-amd64.deb
-        dest: /home/kovbasa
-    - name: install filebeat
-      apt:
-        deb: "/home/kovbasa/filebeat-8.6.2-amd64.deb"
-    - name: replace config file
-      copy:
-        src: /home/kovbasa/ansible/filebeat.yml
-        dest: /etc/filebeat/filebeat.yml
-    - name: setup filebeat
-      shell: 'filebeat setup'
-    - service:
-       name: filebeat
-       state: started
-        
+       
